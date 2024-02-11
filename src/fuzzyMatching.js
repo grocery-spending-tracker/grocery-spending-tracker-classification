@@ -1,5 +1,5 @@
 const Fuse = require('fuse.js');
-const loadProducts = require('./loadProducts');
+const { loadProducts, addProduct } = require('./productUtils');
 
 
 function fuzzyMatching(inputData, products) {

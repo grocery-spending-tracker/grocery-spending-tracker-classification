@@ -1,6 +1,6 @@
 const fuzzyMatching = require('./fuzzyMatching');
 const getProductDetails = require('./getProductDetails');
-const loadProducts = require('./loadProducts');
+const { loadProducts, addProduct } = require('./productUtils');
 
 async function classifyItem(inputItem) {
     // Load products for fuzzy matching
@@ -27,6 +27,8 @@ async function classifyItem(inputItem) {
 
     let classifiedItem;
 
+    console.log(match[0].score) 
+
     if (match && match[0].score < threshold) {
         // If the match is good enough, use it directly
         classifiedItem = {
@@ -38,6 +40,9 @@ async function classifyItem(inputItem) {
             product_number: match[0].match.product_number,
             image_url: match[0].match.image_url
         };
+
+        console.log("Fuzzy matched item with a score of ", match[0].score) 
+
     } else {
         // If the match is not good enough, scrape the website
         const details = await getProductDetails(inputItem[0].sku);
@@ -50,6 +55,15 @@ async function classifyItem(inputItem) {
             product_number: details.product_number,
             image_url: details.image_url
         };
+
+        console.log("Web scraped item") 
+
+        const productExists = products.some(product => product.product_number === classifiedItem.product_number);
+        // If the classified item is not in the product list, add it using addProduct
+        if (!productExists) {
+            addProduct(classifiedItem);
+            console.log("Added classified product item")
+        }
     }
 
     return classifiedItem;

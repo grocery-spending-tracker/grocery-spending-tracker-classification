@@ -19,8 +19,6 @@ async function getProductDetails(sku) {
         const productHrefLastSection = productHref.split('/').pop();
         const productImage = await page.$eval(".responsive-image--product-tile-image", img => img.src.trim());
 
-        console.log(productImage);
-
         return {
             store: storeName,
             brand: productBrand,
