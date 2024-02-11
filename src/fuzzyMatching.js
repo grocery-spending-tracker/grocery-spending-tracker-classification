@@ -3,24 +3,37 @@ const { loadProducts, addProduct } = require('./productUtils');
 
 
 function fuzzyMatching(inputData, products) {
+    const enhancedProducts = products.map(p => ({
+        ...p,
+        brandName: `${p.brand} ${p.name}`
+    }));
+
     const fuseByName = new Fuse(products, { keys: ["name"], includeScore: true });
     const fuseByPrice = new Fuse(products, { keys: ["price"], includeScore: true });
+    const fuseByBrandName = new Fuse(enhancedProducts, { keys: ["brandName"], includeScore: true });
 
-    const nameWeight = 0.5;
-    const priceWeight = 0.5;
+    const nameWeight = 0.6;
+    const priceWeight = 0.4;
 
     const matchedProducts = inputData.map(inputItem => {
         // Perform separate searches
         const resultsByName = fuseByName.search(inputItem.name);
         const resultsByPrice = fuseByPrice.search(inputItem.price);
+        const resultsByBrandName = fuseByBrandName.search(inputItem.name);
         
         let combinedResults = [];
         
         // Combine the results
         resultsByName.forEach(nameResult => {
+            resultsByBrandName.forEach(brandNameResult => {
+                if (nameResult.item.product_number === brandNameResult.item.product_number) {
+                    if (nameResult.score > brandNameResult.score) {
+                        nameResult = brandNameResult;
+                    }
+                }
+            });
             resultsByPrice.forEach(priceResult => {
                 if (nameResult.item === priceResult.item) {
-                    // Assuming scores are on a 0-1 scale and lower is better
                     let combinedScore = (nameResult.score * nameWeight) + (priceResult.score * priceWeight);
                     combinedResults.push({ item: nameResult.item, score: combinedScore });
                 }
@@ -37,7 +50,7 @@ function fuzzyMatching(inputData, products) {
             return { input: inputItem, match: null, score: null };
         }
     });
-
+    
     return matchedProducts;
 }
 
