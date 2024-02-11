@@ -1,0 +1,15 @@
+{
+    "name": "grocery-spending-tracker-classification",
+    "version": "1.0.0",
+    "description": "A project for classification using fuzzy_matching",
+    "main": "index.js",
+    "scripts": {
+        "start": "node fuzzyMatching.js"
+    },
+    "author": "JN",
+    "license": "ISC",
+    "dependencies": {
+        "fuse.js": "^6.4.6",
+        "puppeteer": "^13.0.0"
+    }
+}
