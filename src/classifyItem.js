@@ -8,9 +8,8 @@ function extractDecimalNumber(inputString) {
         return null;
     }
     // Regular expression to find a dollar sign followed by digits and optional decimal part
-    const regex = /\$([\d,]+\.?\d*)/;
+    const regex = /\$?([\d,]+\.?\d*)/;
     const match = inputString.match(regex);
-
     if (match) {
         // Remove commas (if any) and convert to float
         const numberAsString = match[1].replace(/,/g, '');
@@ -37,7 +36,7 @@ async function classifyItem(inputItem) {
     if (match && match[0].score < threshold) {
         // If the match is good enough, use it directly
         classifiedItem = {
-            store: inputItem[0].store,
+            // store: inputItem[0].store,
             brand: match[0].match.brand,
             name: match[0].match.name,
             price: match[0].match.price,
@@ -49,21 +48,25 @@ async function classifyItem(inputItem) {
         console.log("Fuzzy matched item with a score of ", match[0].score) 
 
     } else {
-        // If the match is not good enough, scrape the website
-        const details = await getProductDetails(inputItem[0].sku);
 
-        classifiedItem = {
-            store: inputItem[0].store,
-            brand: details.brand,
-            name: details.name,
-            price: extractDecimalNumber(details.price),
-            was_price: extractDecimalNumber(details.was_price),
-            product_number: details.product_number,
-            image_url: details.image_url
-        };
+        try {
+            const details = await getProductDetails(inputItem[0].item_key);
+            classifiedItem = {
+                // store: "Fortinos",
+                brand: details.brand,
+                name: details.name,
+                price: extractDecimalNumber(inputItem[0].price),
+                list_price: extractDecimalNumber(details.price),
+                // was_price: extractDecimalNumber(details.was_price),
+                product_number: details.product_number,
+                image_url: details.image_url
+            };
 
-        console.log("Web scraped item") 
-
+            console.log("Successfully scraped product information") 
+        } catch {
+            console.log("Failed to scrape product information")
+        }
+        
         const productExists = products.some(product => product.product_number === classifiedItem.product_number);
         // If the classified item is not in the product list, add it using addProduct
         if (!productExists) {
@@ -77,10 +80,10 @@ async function classifyItem(inputItem) {
 
 // Example input item
 const inputItem = [{
-    store: "Fortinos", 
-    sku: "2002040", 
-    name: "LEAN GRND BEEF", 
-    price: "7.20"
+    // store: "Fortinos", 
+    item_key: "06038318640", 
+    item_desc: "PCO CREMINI 227", 
+    price: "1.99"
 }];
 
 classifyItem(inputItem)
