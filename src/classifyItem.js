@@ -37,7 +37,7 @@ async function classifyItem(inputItem) {
     if (match && match[0].score < threshold) {
         // If the match is good enough, use it directly
         classifiedItem = {
-            store: inputItem[0].store,
+            // store: inputItem[0].store,
             brand: match[0].match.brand,
             name: match[0].match.name,
             price: match[0].match.price,
@@ -50,10 +50,10 @@ async function classifyItem(inputItem) {
 
     } else {
         // If the match is not good enough, scrape the website
-        const details = await getProductDetails(inputItem[0].sku);
+        const details = await getProductDetails(inputItem[0].item_key);
 
         classifiedItem = {
-            store: inputItem[0].store,
+            store: "Fortinos",
             brand: details.brand,
             name: details.name,
             price: extractDecimalNumber(details.price),
@@ -77,9 +77,9 @@ async function classifyItem(inputItem) {
 
 // Example input item
 const inputItem = [{
-    store: "Fortinos", 
-    sku: "2002040", 
-    name: "LEAN GRND BEEF", 
+    // store: "Fortinos", 
+    item_key: "2002040", 
+    item_desc: "LEAN GRND BEEF", 
     price: "7.20"
 }];
 

@@ -1,18 +1,33 @@
+const fs = require('fs');
 const puppeteer = require('puppeteer');
+const path = require('path');
+
+
+const cachePath = path.join(__dirname, 'cache.json');
+
+function readCache() {
+    if (fs.existsSync(cachePath)) {
+        const cacheRaw = fs.readFileSync(cachePath);
+        return JSON.parse(cacheRaw);
+    }
+    return {};
+}
+
+function writeCache(cache) {
+    fs.writeFileSync(cachePath, JSON.stringify(cache, null, 2));
+}
 
 async function getProductDetails(sku) {
+
+    const cache = readCache();
+    if (cache[sku]) {
+        console.log('Returning cached details for SKU:', sku);
+        return cache[sku];
+    }
+
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
-
-    let productDetails = {
-        store: "Fortinos",
-        brand: null,
-        name: null,
-        price: null,
-        was_price: null,
-        product_number: null,
-        image_url: null
-    };
+    const productDetails = { store: "Fortinos", brand: null, name: null, price: null, was_price: null, product_number: null, image_url: null };
 
     try {
         const url = `https://www.fortinos.ca/search?search-bar=${sku}`;
@@ -49,6 +64,10 @@ async function getProductDetails(sku) {
         } catch (error) {
             console.log("Image URL not found");
         }
+
+        // Update cache with new details
+        cache[sku] = productDetails;
+        writeCache(cache);
 
     } catch (error) {
         console.error(`Error fetching product details for SKU ${sku}:`, error);

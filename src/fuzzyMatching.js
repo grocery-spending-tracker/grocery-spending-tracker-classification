@@ -17,9 +17,9 @@ function fuzzyMatching(inputData, products) {
 
     const matchedProducts = inputData.map(inputItem => {
         // Perform separate searches
-        const resultsByName = fuseByName.search(inputItem.name);
+        const resultsByName = fuseByName.search(inputItem.item_desc);
         const resultsByPrice = fuseByPrice.search(inputItem.price);
-        const resultsByBrandName = fuseByBrandName.search(inputItem.name);
+        const resultsByBrandName = fuseByBrandName.search(inputItem.item_desc);
         
         let combinedResults = [];
         
