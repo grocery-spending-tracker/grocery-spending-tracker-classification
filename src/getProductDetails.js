@@ -33,7 +33,6 @@ async function getProductDetails(sku) {
         const url = `https://www.fortinos.ca/search?search-bar=${sku}`;
         await page.goto(url, { waitUntil: 'networkidle2' });
 
-        // Wrap each attribute extraction in a try-catch
         try {
             productDetails.brand = await page.$eval(".product-name__item--brand", el => el.textContent.trim());
         } catch (error) {
@@ -65,7 +64,6 @@ async function getProductDetails(sku) {
             console.log("Image URL not found");
         }
 
-        // Update cache with new details
         cache[sku] = productDetails;
         writeCache(cache);
 

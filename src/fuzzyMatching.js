@@ -16,14 +16,12 @@ function fuzzyMatching(inputData, products) {
     const priceWeight = 0.4;
 
     const matchedProducts = inputData.map(inputItem => {
-        // Perform separate searches
         const resultsByName = fuseByName.search(inputItem.item_desc);
         const resultsByPrice = fuseByPrice.search(inputItem.price);
         const resultsByBrandName = fuseByBrandName.search(inputItem.item_desc);
         
         let combinedResults = [];
         
-        // Combine the results
         resultsByName.forEach(nameResult => {
             resultsByBrandName.forEach(brandNameResult => {
                 if (nameResult.item.product_number === brandNameResult.item.product_number) {
@@ -40,10 +38,8 @@ function fuzzyMatching(inputData, products) {
             });
         });
 
-        // Sort combined results by the combined score
         combinedResults.sort((a, b) => a.score - b.score);
         
-        // Select the best match
         if (combinedResults.length > 0) {
             return { input: inputItem, match: combinedResults[0].item, score: combinedResults[0].score };
         } else {
