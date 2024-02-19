@@ -1,17 +1,47 @@
-const classifyItem = require('./classifyItem').classifyItem;
-const convertPriceToDecimal = require('./convertPriceToDecimal').convertPriceToDecimal;
-const fuzzyMatching = require('./fuzzyMatching').fuzzyMatching;
-const getProductDetails = require('./getProductDetails').getProductDetails;
-const productUtils = require('./productUtils').productUtils;
+const classifyItem = require('./classification/classifyItem');
+const getProductDetails = require('./scraper/fetchProductDetails');
+const { loadProducts, addProduct, extractDecimalNumber } = require('./classification/util'); // Adjust path as needed
 
-module.exports = {
-  classifyItem,
-  convertPriceToDecimal,
-  fuzzyMatching,
-  getProductDetails,
-  productUtils,
-  // You can also export the data if necessary
-  products: require('./products.json'),
-  updated_products: require('./updated_products.json'),
-  // Add more exports here if needed
-};
+async function processItem(item) {
+    const products = loadProducts();
+    const classifiedItem = await classifyItem([item]);
+
+    if (!classifiedItem) {
+        try {
+            const details = await getProductDetails(item[0].item_key);
+            if (details) {
+                addProduct(details);
+                // console.log("Scraped and added product:", details);
+            }
+
+            const scrapedItem = {
+                brand: details.brand,
+                name: details.name,
+                price: extractDecimalNumber(item[0].price),
+                list_price: extractDecimalNumber(details.price),
+                product_number: details.product_number,
+                image_url: details.image_url
+            };
+
+            return scrapedItem;
+        } catch (error) {
+            console.error("Failed to scrape product information:", error);
+            return null;
+        }
+    }
+
+    return classifiedItem;
+}
+
+if (require.main === module) {
+    const inputItem = [{
+        // store: "Fortinos", 
+        "item_key": "06038318640",
+        "item_desc": "PCO CREMINI 227",
+        "price": "1.99"
+    }];
+    
+    processItem(inputItem)
+        .then(result => console.log(result))
+        .catch(error => console.error(error));
+}

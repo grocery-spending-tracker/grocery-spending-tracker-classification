@@ -1,6 +1,7 @@
 const fs = require('fs');
+const path = require('path');
 
-const productsFilePath = './products.json';
+const productsFilePath = path.join(__dirname, 'products.json');
 
 function loadProducts() {
     try {
@@ -23,4 +24,20 @@ function addProduct(newProduct) {
     }
 }
 
-module.exports = { loadProducts, addProduct };
+function extractDecimalNumber(inputString) {
+    if (inputString == null) {
+        return null;
+    }
+
+    const regex = /\$?([\d,]+\.?\d*)/;
+    const match = inputString.match(regex);
+    if (match) {
+
+        const numberAsString = match[1].replace(/,/g, '');
+        return parseFloat(numberAsString);
+    }
+
+    return null; // Return null if no matching pattern is found
+}
+
+module.exports = { loadProducts, addProduct, extractDecimalNumber };

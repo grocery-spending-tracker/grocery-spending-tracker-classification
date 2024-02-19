@@ -1,13 +1,11 @@
-// const fs = require('fs');
-// const puppeteer = require('puppeteer');
-// const path = require('path');
-
+const fs = require('fs');
 const fetchBrand = require('./brand');
 const fetchName = require('./name');
-const fetchPrice = require('./price')
+const fetchPrice = require('./price');
 const fetchProductNumber = require('./productNumber');
 const fetchImage = require('./image');
-const { readCache, writeCache } = require('./scraperUtil');
+const { readCache, writeCache } = require('./util');
+const { logError } = require('../logger');
 
 async function getProductDetails(sku) {
     const cache = readCache();
@@ -31,16 +29,18 @@ async function getProductDetails(sku) {
         writeCache(cache);
 
     } catch (error) {
-        console.error(`Error fetching product details for SKU ${sku}:`, error);
+        logError(`Error fetching product details for SKU ${sku}: ${error}`); // Use logError for error logging
     }
 
     return productDetails;
 }
 
-const inputItem = "06905212968";
+if (require.main === module) {
+    const inputItem = "06038318640"; // Example SKU
 
-getProductDetails(inputItem)
-    .then(productDetails => console.log(productDetails))
-    .catch(error => console.error(error));
+    getProductDetails(inputItem)
+        .then(productDetails => console.log(productDetails))
+        .catch(error => logError(error)); // Use logError for error logging
+}
 
 module.exports = getProductDetails;
