@@ -4,7 +4,7 @@
     "description": "A project for classifying grocery products",
     "main": "index.js",
     "scripts": {
-        "start": "node fuzzyMatching.js"
+        "start": "node src/index.js"
     },
     "author": "JN",
     "license": "ISC",
