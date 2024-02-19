@@ -9,9 +9,10 @@ async function processItem(item) {
     if (!classifiedItem) {
         try {
             const details = await getProductDetails(item[0].item_key);
-            if (details) {
+            const productExists = products.some(product => product.product_number === details.product_number);
+            if (!productExists) {
                 addProduct(details);
-                // console.log("Scraped and added product:", details);
+                console.log("Added classified product item")
             }
 
             const scrapedItem = {
