@@ -1,6 +1,6 @@
-const classifyItem = require('./classification/classifyItem');
-const getProductDetails = require('./scraper/fetchProductDetails');
-const { loadProducts, addProduct, extractDecimalNumber } = require('./classification/util'); // Adjust path as needed
+import classifyItem from './classification/classifyItem.js';
+import getProductDetails from './scraper/fetchProductDetails.js';
+import { loadProducts, addProduct, extractDecimalNumber } from './classification/util.js'; // Adjust path as needed
 
 async function processItem(item) {
     const products = loadProducts();
@@ -34,7 +34,8 @@ async function processItem(item) {
     return classifiedItem;
 }
 
-if (require.main === module) {
+// require.main === module converted to esm
+if (process.argv[1] && import.meta.url === `file://${process.argv[1]}`) {
     const inputItem = [{
         // store: "Fortinos", 
         "item_key": "06038318640",

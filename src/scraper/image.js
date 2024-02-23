@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+import puppeteer from 'puppeteer';
 
 async function fetchImage(url) {
     const browser = await puppeteer.launch();
@@ -16,4 +16,4 @@ async function fetchImage(url) {
     return imageUrl;
 }
 
-module.exports = fetchImage;
+export default fetchImage;

@@ -13,3 +13,4 @@
 2024-02-19T08:17:06.976Z - Error processing input item [object Object]: TypeError: Cannot read properties of undefined (reading '$and')
 2024-02-19T08:19:22.045Z - Error processing input item [object Object]: TypeError: Cannot read properties of undefined (reading '$and')
 2024-02-19T08:19:37.822Z - Error processing input item [object Object]: TypeError: Cannot read properties of undefined (reading '$and')
+2024-02-23T06:23:33.464Z - Error in fuzzyMatching function: TypeError: inputData[0].map is not a function

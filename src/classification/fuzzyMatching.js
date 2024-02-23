@@ -1,7 +1,6 @@
-const Fuse = require('fuse.js');
-const fs = require('fs');
-
-const { logError } = require('../logger');
+import Fuse from 'fuse.js';
+import fs from 'fs';
+import { logError } from '../logger.js'; // Adjust the path as necessary
 
 function fuzzyMatching(inputData, products) {
     try {
@@ -18,7 +17,6 @@ function fuzzyMatching(inputData, products) {
         const priceWeight = 0.4;
 
         const matchedProducts = inputData[0].map(inputItem => {
-
             try {
                 const resultsByName = fuseByName.search(inputItem.item_desc);
                 const resultsByPrice = fuseByPrice.search(inputItem.price);
@@ -58,10 +56,9 @@ function fuzzyMatching(inputData, products) {
         return matchedProducts;
     } catch (error) {
         logError(`Error in fuzzyMatching function: ${error}`);
-
         // Handle the error appropriately
         return []; // Return an empty array or appropriate error response
     }
 }
 
-module.exports = fuzzyMatching;
+export default fuzzyMatching;
