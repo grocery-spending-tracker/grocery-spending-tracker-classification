@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 
 function logError(error) {
     fs.appendFile('errorLog.txt', `${new Date().toISOString()} - ${error}\n`, err => {
@@ -6,4 +6,4 @@ function logError(error) {
     });
 }
 
-module.exports = { logError };
+export { logError };

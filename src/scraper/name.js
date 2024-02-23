@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+import puppeteer from 'puppeteer';
 
 async function fetchName(url) {
     const browser = await puppeteer.launch();
@@ -14,4 +14,4 @@ async function fetchName(url) {
     return name;
 }
 
-module.exports = fetchName;
+export default fetchName;

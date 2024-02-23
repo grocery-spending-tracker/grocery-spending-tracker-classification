@@ -1,15 +1,20 @@
 {
-    "name": "grocery-spending-tracker-classification",
-    "version": "1.0.0",
-    "description": "A project for classifying grocery products",
-    "main": "index.js",
-    "scripts": {
-        "start": "node src/index.js"
-    },
-    "author": "JN",
-    "license": "ISC",
-    "dependencies": {
-        "fuse.js": "^6.4.6",
-        "puppeteer": "^13.0.0"
-    }
+  "name": "grocery-spending-tracker-classification",
+  "version": "1.0.0",
+  "description": "A project for classifying grocery products",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "type": "module",
+  "author": "JN",
+  "license": "ISC",
+  "dependencies": {
+    "fuse.js": "^6.4.6",
+    "puppeteer": "^13.0.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {}
 }

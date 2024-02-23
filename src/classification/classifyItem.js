@@ -1,5 +1,5 @@
-const fuzzyMatching = require('./fuzzyMatching'); 
-const { loadProducts, addProduct, extractDecimalNumber } = require('./util'); 
+import fuzzyMatching from './fuzzyMatching.js'; 
+import { loadProducts, addProduct, extractDecimalNumber } from './util.js'; 
 
 async function classifyItem(inputItem) {
     const products = loadProducts();
@@ -23,7 +23,7 @@ async function classifyItem(inputItem) {
     return classifiedItem;
 }
 
-if (require.main === module) {
+if (process.argv[1] && import.meta.url === `file://${process.argv[1]}`) {
     const inputItem = [{
         // store: "Fortinos", 
         "item_key": "06038318640",
@@ -36,4 +36,4 @@ if (require.main === module) {
         .catch(error => console.error(error));
 }
 
-module.exports = classifyItem;
+export default classifyItem;

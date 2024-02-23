@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+import puppeteer from 'puppeteer';
 
 async function fetchProductNumber(url) {
     const browser = await puppeteer.launch();
@@ -19,4 +19,4 @@ async function fetchProductNumber(url) {
     return productNumber;
 }
 
-module.exports = fetchProductNumber;
+export default fetchProductNumber;

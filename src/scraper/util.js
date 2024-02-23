@@ -1,7 +1,10 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const cachePath = path.join(__dirname, 'cache.json');
 
 function readCache() {
@@ -16,4 +19,4 @@ function writeCache(cache) {
     fs.writeFileSync(cachePath, JSON.stringify(cache, null, 2));
 }
 
-module.exports = { readCache, writeCache };
+export { readCache, writeCache };

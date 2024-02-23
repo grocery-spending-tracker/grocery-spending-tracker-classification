@@ -1,11 +1,11 @@
-const fs = require('fs');
-const fetchBrand = require('./brand');
-const fetchName = require('./name');
-const fetchPrice = require('./price');
-const fetchProductNumber = require('./productNumber');
-const fetchImage = require('./image');
-const { readCache, writeCache } = require('./util');
-const { logError } = require('../logger');
+import fs from 'fs';
+import fetchBrand from './brand.js';
+import fetchName from './name.js';
+import fetchPrice from './price.js';
+import fetchProductNumber from './productNumber.js';
+import fetchImage from './image.js';
+import { readCache, writeCache } from './util.js';
+import { logError } from '../logger.js';
 
 async function getProductDetails(sku) {
     const cache = readCache();
@@ -29,18 +29,18 @@ async function getProductDetails(sku) {
         writeCache(cache);
 
     } catch (error) {
-        logError(`Error fetching product details for SKU ${sku}: ${error}`); // Use logError for error logging
+        logError(`Error fetching product details for SKU ${sku}: ${error}`);
     }
 
     return productDetails;
 }
 
-if (require.main === module) {
+if (process.argv[1] && import.meta.url === `file://${process.argv[1]}`) {
     const inputItem = "06038318640"; // Example SKU
 
     getProductDetails(inputItem)
         .then(productDetails => console.log(productDetails))
-        .catch(error => logError(error)); // Use logError for error logging
+        .catch(error => logError(error));
 }
 
-module.exports = getProductDetails;
+export default getProductDetails;
