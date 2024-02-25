@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
 
 async function fetchPrice(url) {
     const browser = await puppeteer.launch();
