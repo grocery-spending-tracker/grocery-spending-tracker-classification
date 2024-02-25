@@ -35,12 +35,4 @@ async function getProductDetails(sku) {
     return productDetails;
 }
 
-if (process.argv[1] && import.meta.url === `file://${process.argv[1]}`) {
-    const inputItem = "06038318640"; // Example SKU
-
-    getProductDetails(inputItem)
-        .then(productDetails => console.log(productDetails))
-        .catch(error => logError(error));
-}
-
 export default getProductDetails;

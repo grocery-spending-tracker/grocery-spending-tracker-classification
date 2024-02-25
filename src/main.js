@@ -34,16 +34,4 @@ async function processItem(item) {
     return classifiedItem;
 }
 
-// require.main === module converted to esm
-if (process.argv[1] && import.meta.url === `file://${process.argv[1]}`) {
-    const inputItem = [{
-        // store: "Fortinos", 
-        "item_key": "06038318640",
-        "item_desc": "PCO CREMINI 227",
-        "price": "1.99"
-    }];
-    
-    processItem(inputItem)
-        .then(result => console.log(result))
-        .catch(error => console.error(error));
-}
+export { processItem };

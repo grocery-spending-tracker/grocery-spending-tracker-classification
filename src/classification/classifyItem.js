@@ -23,17 +23,4 @@ async function classifyItem(inputItem) {
     return classifiedItem;
 }
 
-if (process.argv[1] && import.meta.url === `file://${process.argv[1]}`) {
-    const inputItem = [{
-        // store: "Fortinos", 
-        "item_key": "06038318640",
-        "item_desc": "PCO CREMINI 227",
-        "price": "1.99"
-    }];
-    
-    classifyItem(inputItem)
-        .then(classifiedItem => console.log(classifiedItem))
-        .catch(error => console.error(error));
-}
-
 export default classifyItem;
