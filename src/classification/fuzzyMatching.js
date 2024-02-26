@@ -16,7 +16,7 @@ function fuzzyMatching(inputData, products) {
         const nameWeight = 0.6;
         const priceWeight = 0.4;
 
-        const matchedProducts = inputData[0].map(inputItem => {
+        const matchedProducts = inputData.map(inputItem => {
             try {
                 const resultsByName = fuseByName.search(inputItem.item_desc);
                 const resultsByPrice = fuseByPrice.search(inputItem.price);
