@@ -18,7 +18,7 @@ async function processItem(item) {
             const scrapedItem = {
                 brand: details.brand,
                 name: details.name,
-                price: extractDecimalNumber(item[0].price),
+                price: item[0].price,
                 list_price: extractDecimalNumber(details.price),
                 product_number: details.product_number,
                 image_url: details.image_url

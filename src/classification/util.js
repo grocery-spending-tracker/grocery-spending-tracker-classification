@@ -29,6 +29,9 @@ function addProduct(newProduct) {
 }
 
 function extractDecimalNumber(inputString) {
+
+    console.log(inputString);
+
     if (inputString == null) {
         return null;
     }
