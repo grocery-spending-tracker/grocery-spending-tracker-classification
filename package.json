@@ -12,8 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "fuse.js": "^6.4.6",
-    "puppeteer-core": "^13.0.0",
-    "puppeteer": "^15.0.0"
+    "puppeteer": "^22.2.0"
   },
   "directories": {
     "test": "test"
