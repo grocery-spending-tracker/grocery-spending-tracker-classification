@@ -3,8 +3,12 @@ import { loadProducts, addProduct, extractDecimalNumber } from './util.js';
 
 async function classifyItem(inputItem) {
     const products = loadProducts();
-    inputItem[0]["price"] = String(inputItem[0]["price"]);
-    const match = fuzzyMatching(inputItem, products);
+
+    let inputCopy = [...inputItem];
+    inputCopy[0] = { ...inputCopy[0] };
+    inputCopy[0]["price"] = String(inputCopy[0]["price"]);
+
+    const match = fuzzyMatching(inputCopy, products);
     const threshold = 0.4;
     let classifiedItem;
     
