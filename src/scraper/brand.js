@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer-core';
+import puppeteer from 'puppeteer';
 
 async function fetchBrand(url) {
     const browser = await puppeteer.launch();
