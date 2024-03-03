@@ -40,4 +40,4 @@ async function processItem(items) {
     return processedItems;
 }
 
-export { processItem };
+export default { processItem };
