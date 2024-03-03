@@ -14,4 +14,6 @@ async function fetchBrand(url) {
     return brand;
 }
 
-export default fetchBrand;
+export {
+    fetchBrand
+};

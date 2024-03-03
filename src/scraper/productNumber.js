@@ -19,4 +19,6 @@ async function fetchProductNumber(url) {
     return productNumber;
 }
 
-export default fetchProductNumber;
+export {
+    fetchProductNumber
+};
