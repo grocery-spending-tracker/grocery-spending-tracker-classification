@@ -14,4 +14,6 @@ async function fetchPrice(url) {
     return price;
 }
 
-export default fetchPrice;
+export {
+    fetchPrice
+};

@@ -14,4 +14,6 @@ async function fetchName(url) {
     return name;
 }
 
-export default fetchName;
+export {
+    fetchName
+};
