@@ -5,17 +5,26 @@
   "main": "main.js",
   "scripts": {
     "start": "node src/main.js",
-    "test": "node test/testProcessItem.js"
+    "test": "npx mocha ./**/*.test.js",
+    "coverage": "npx c8 npm test"
   },
   "type": "module",
   "author": "JN",
   "license": "ISC",
+  "mocha": {
+    "require": "mocha-suppress-logs"
+  },
   "dependencies": {
     "fuse.js": "^6.4.6",
     "puppeteer": "^22.2.0"
   },
-  "directories": {
-    "test": "test"
-  },
-  "devDependencies": {}
+  "devDependencies": {
+    "c8": "^9.1.0",
+    "chai": "^5.1.0",
+    "chai-http": "^4.4.0",
+    "mocha": "^10.3.0",
+    "mocha-suppress-logs": "^0.5.1",
+    "rewire": "^7.0.0",
+    "sinon": "^17.0.1"
+  }
 }
