@@ -16,4 +16,6 @@ async function fetchImage(url) {
     return imageUrl;
 }
 
-export default fetchImage;
+export {
+    fetchImage
+};
