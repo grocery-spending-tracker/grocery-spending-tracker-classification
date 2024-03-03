@@ -1,9 +1,9 @@
 import fs from 'fs';
-import fetchBrand from './brand.js';
-import fetchName from './name.js';
-import fetchPrice from './price.js';
-import fetchProductNumber from './productNumber.js';
-import fetchImage from './image.js';
+import * as fetchBrand from './brand.js';
+import * as fetchName from './name.js';
+import * as fetchPrice from './price.js';
+import * as fetchProductNumber from './productNumber.js';
+import * as fetchImage from './image.js';
 import { readCache, writeCache } from './util.js';
 import { logError } from '../logger.js';
 
