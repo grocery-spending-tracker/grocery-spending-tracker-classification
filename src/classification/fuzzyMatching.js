@@ -1,6 +1,5 @@
 import Fuse from 'fuse.js';
-import fs from 'fs';
-import { logError } from '../logger.js'; // Adjust the path as necessary
+import logger from '../logger.js'; // Adjust the path as necessary
 
 function fuzzyMatching(inputData, products) {
     try {
@@ -48,17 +47,17 @@ function fuzzyMatching(inputData, products) {
                     return { input: inputItem, match: null, score: null };
                 }
             } catch (error) {
-                logError(`Error processing input item ${inputItem}: ${error}`);
+                logger.logError(`Error processing input item ${inputItem}: ${error}`);
                 return { input: inputItem, match: null, score: null, error: true };
             }
         });
 
         return matchedProducts;
     } catch (error) {
-        logError(`Error in fuzzyMatching function: ${error}`);
+        logger.logError(`Error in fuzzyMatching function: ${error}`);
         // Handle the error appropriately
         return []; // Return an empty array or appropriate error response
     }
 }
 
-export default fuzzyMatching;
+export default { fuzzyMatching };

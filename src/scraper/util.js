@@ -19,4 +19,4 @@ function writeCache(cache) {
     fs.writeFileSync(cachePath, JSON.stringify(cache, null, 2));
 }
 
-export { readCache, writeCache };
+export default { readCache, writeCache };

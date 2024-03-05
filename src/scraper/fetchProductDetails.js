@@ -4,13 +4,14 @@ import * as name from './name.js';
 import * as price from './price.js';
 import * as productNumber from './productNumber.js';
 import * as image from './image.js';
-import { readCache, writeCache } from './util.js';
-import { logError } from '../logger.js';
+import util from './util.js';
+import logger from '../logger.js';
 
 async function getProductDetails(sku) {
-    const cache = readCache();
+    const cache = util.readCache();
+
     if (cache[sku]) {
-        console.log('Returning cached details for SKU:', sku);
+        // console.log('Returning cached details for SKU:', sku);
         return cache[sku];
     }
 
@@ -26,10 +27,10 @@ async function getProductDetails(sku) {
         productDetails.image_url = await image.fetchImage(url);
 
         cache[sku] = productDetails;
-        writeCache(cache);
+        util.writeCache(cache);
 
     } catch (error) {
-        logError(`Error fetching product details for SKU ${sku}: ${error}`);
+        logger.logError(`Error fetching product details for SKU ${sku}: ${error}`);
     }
 
     return productDetails;
