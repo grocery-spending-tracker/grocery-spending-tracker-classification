@@ -38,7 +38,7 @@ describe('FRT-M9: Test match product details using classification module', () =>
          * Output: empty list
          * Derivation: the classification module must reject match if score is above threshold.
          */
-        it('FRT-M9-8a: Should classify item match that has match score below threshold and return empty list', async () => {
+        it('FRT-M9-8a: Should classify item match that has match score above threshold and return empty list', async () => {
             const expectedClassifiedItem = [];
             const classifiedItem = await classifyItem(mockValidInputItem);
             // console.log(classifiedItem);
@@ -52,7 +52,7 @@ describe('FRT-M9: Test match product details using classification module', () =>
          * Output: list containing matched item details of input item
          * Derivation: the classification module must verify return of classified item deatils if match score is below threshold.
          */
-        it('FRT-M9-8b: Should classify item match that has match score below threshold and return empty list', async () => {
+        it('FRT-M9-8b: Should classify item match that has match score below threshold and return matched item description', async () => {
             fuzzyMatchStub = sandbox.stub(fuzzyMatch, 'fuzzyMatching').returns(
                 [{ 
                     input: {

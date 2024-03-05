@@ -9,7 +9,7 @@ async function fetchImage(url) {
     try {
         imageUrl = await page.$eval("img.card-img", img => img.src.trim());
     } catch (error) {
-        console.log("Image URL not found");
+        // console.log("Image URL not found");
     }
 
     await browser.close();
