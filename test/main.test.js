@@ -57,18 +57,21 @@ describe('FRT-M9: Test match product details using classification module', () =>
         sandbox.restore();
     });
 
+    /**
+     * Tests for FRT-M9-9
+     */
     describe('FRT-M9-9: Test classifyItem()', function() {
 
-        this.timeout(100000);
+        this.timeout(500000);
 
         /**
          * FRT-M9-9a
          * Initial State: none
-         * Input: 
-         * Output:
-         * Derivation: 
+         * Input: list of items and their details from receipt
+         * Output: list of classified items and their details obtained from scraper
+         * Derivation: the process should ensure that item is properly processed and robustly scrapes item details from web
          */
-        it('FRT-M9-9a: Should classify item match that has match score below threshold and return empty list', async () => {
+        it('FRT-M9-9a: Should scrape item details and return list of items and their details', async () => {
             const expectedClassifiedItem = [
                 {
                     "brand": "President's Choice",

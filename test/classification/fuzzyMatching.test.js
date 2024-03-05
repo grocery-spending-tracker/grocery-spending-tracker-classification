@@ -30,6 +30,9 @@ describe('FRT-M9: Test match product details using classification module', () =>
         sandbox.restore();
     });
 
+    /**
+     * Tests for FRT-M9-7
+     */
     describe('FRT-M9-7: Test fuzzyMatching()', async () => {
 
         /**

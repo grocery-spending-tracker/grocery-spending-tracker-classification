@@ -21,6 +21,9 @@ describe('FRT-M9: Test fetch product details using scraper module', () => {
         sandbox.restore();
     });
 
+    /**
+     * Tests for FRT-M9-6
+     */
     describe('FRT-M9-6: Test getProductDetails()', function() {
 
         this.timeout(100000);
