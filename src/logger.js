@@ -6,4 +6,4 @@ function logError(error) {
     });
 }
 
-export { logError };
+export default { logError };

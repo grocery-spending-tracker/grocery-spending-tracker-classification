@@ -8,6 +8,9 @@ async function fetchProductNumber(url) {
     const productNumber = await page.evaluate(() => {
         const links = Array.from(document.querySelectorAll('a.card-link'));
         const fortinosLink = links.find(link => link.href.includes('fortinos.ca/p/'));
+
+        console.log(fortinosLink)
+        
         if (fortinosLink) {
             const match = fortinosLink.href.match(/\/p\/(\d+_EA)/);
             return match ? match[1] : null;

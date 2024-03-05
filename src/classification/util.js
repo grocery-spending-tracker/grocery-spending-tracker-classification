@@ -44,4 +44,4 @@ function extractDecimalNumber(inputString) {
     return null; // Return null if no matching pattern is found
 }
 
-export { loadProducts, addProduct, extractDecimalNumber };
+export default { loadProducts, addProduct, extractDecimalNumber };
