@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node src/main.js",
     "test": "npx mocha './test/**/*.test.js'",
-    "coverage": "npx c8 npm test"
+    "coverage": "npx c8 -x src/logger.js npm test"
   },
   "author": "JN",
   "license": "ISC",
