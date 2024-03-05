@@ -2,13 +2,13 @@
   "name": "grocery-spending-tracker-classification",
   "version": "1.0.0",
   "description": "A project for classifying grocery products",
+  "type": "module",
   "main": "main.js",
   "scripts": {
     "start": "node src/main.js",
-    "test": "npx mocha ./**/*.test.js",
+    "test": "npx mocha ./test/**/*.test.js",
     "coverage": "npx c8 npm test"
   },
-  "type": "module",
   "author": "JN",
   "license": "ISC",
   "dependencies": {
@@ -20,6 +20,7 @@
     "chai": "^5.1.0",
     "chai-http": "^4.4.0",
     "mocha": "^10.3.0",
-    "rewire": "^7.0.0"
+    "rewire": "^7.0.0",
+    "sinon": "^17.0.1"
   }
 }
