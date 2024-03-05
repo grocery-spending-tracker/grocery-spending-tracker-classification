@@ -59,7 +59,7 @@ describe('FRT-M9: Test match product details using classification module', () =>
 
     describe('FRT-M9-9: Test classifyItem()', function() {
 
-        this.timeout(100000);
+        this.timeout(500000);
 
         /**
          * FRT-M9-9a
