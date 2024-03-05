@@ -1,46 +1,104 @@
 import { expect, use } from 'chai';
 import chaiHttp from 'chai-http';
 import sandbox from 'sinon';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 import ScraperUtil from '../../src/scraper/util.js';
-import Logger from '../../src/logger.js';
 
 use(chaiHttp);
 
-describe('FRT-M9: ', () => {
-    let readCacheStub, writeCacheStub, logErrorStub;
+describe('FRT-M9: Test util functions for scraper module', () => {
+    let existsSyncStub, readFileSyncStub, writeFileSyncStub, spy;
 
     beforeEach(() => {
-        writeCacheStub = sandbox.stub(Util, 'writeCache').callsFake(() => {});
-        logErrorStub = sandbox.stub(Logger, 'logError').callsFake(() => {});
+        existsSyncStub = sandbox.stub(fs, 'existsSync');
+        readFileSyncStub = sandbox.stub(fs, 'readFileSync');
+        writeFileSyncStub = sandbox.stub(fs, 'writeFileSync');
     });
 
     afterEach(() => {
         sandbox.restore();
     });
 
+    /**
+     * Tests for FRT-M9-10
+     */
     describe('FRT-M9-10: readCache()', function() {
 
         /**
          * FRT-M9-10a
-         * Initial State: 
-         * Input: 
-         * Output:
-         * Derivation: 
+         * Initial State: none
+         * Input: none
+         * Output: empty Object
+         * Derivation: the util function must ensure empty object is returned if reading cache file fails
          */
-        it('FRT-M9-10a: ', async () => {
-            // readCacheStub = sandbox.stub(Util, 'readCache').returns({});
-            // const expectedProductDetails = {
-            //     brand: 'Nestea',
-            //     image_url: 'https://assets.shop.loblaws.ca/products/20348331004/b1/en/front/20348331004_front_a01_@2.png',
-            //     name: 'Lemon Tea, Gable Top Carton',
-            //     price: '$4.49',
-            //     product_number: '20348331004_EA',
-            //     store: 'Fortinos'
-            // };
-            // const productDetails = await getProductDetails(sampleSKU);
-            // console.log(productDetails);
-            // expect(productDetails).to.deep.equal(expectedProductDetails);
+        it('FRT-M9-10a: should fail to read cache file and return empty object', async () => {
+            existsSyncStub.withArgs(sandbox.match.any).returns(false);
+        
+            const result = ScraperUtil.readCache();
+            expect(result).to.deep.equal({});
+        });
+
+        /**
+         * FRT-M9-10b
+         * Initial State: cache file with Object { key: "value" }
+         * Input: none
+         * Output: Object { key: "value" }
+         * Derivation: the util function must ensure object is read from cache file
+         */
+        it('FRT-M9-10b: should return parsed JSON object from cache file if exists', () => {
+            existsSyncStub.withArgs(sandbox.match.any).returns(true);
+            readFileSyncStub.withArgs(sandbox.match.any).returns(JSON.stringify({ key: "value" }));
+    
+            const result = ScraperUtil.readCache();
+            expect(result).to.deep.equal({ key: "value" });
+        });
+    });
+
+    /**
+     * Tests for FRT-M9-11
+     */
+    describe('FRT-M9-11: writeCache()', function() {
+
+        /**
+         * FRT-M9-11a
+         * Initial State: empty cache file
+         * Input: cacheData Object
+         * Output: none
+         * Derivation: the util function must ensure writeFileSync is called
+         */
+        it('FRT-M9-11a: should assert writing file JSON object to cache file', async () => {
+            writeFileSyncStub.withArgs(sandbox.match.any);
+            
+            const cacheData = { key: "value" };
+            ScraperUtil.writeCache(cacheData);
+        
+            sandbox.assert.calledOnce(writeFileSyncStub);
+        
+            sandbox.assert.calledWith(writeFileSyncStub, sandbox.match.string, JSON.stringify(cacheData, null, 2));
+        });
+
+        /**
+         * FRT-M9-11b
+         * Initial State: empty cache file
+         * Input: cacheData Object
+         * Output: none
+         * Derivation: the util function must ensure correct file path is called
+         */
+        it('FRT-M9-11b: should assert path to cache file', async () => {
+            writeFileSyncStub.withArgs(sandbox.match.any);
+            
+            const cacheData = { key: "value" };
+            ScraperUtil.writeCache(cacheData);
+
+            const __filename = fileURLToPath(import.meta.url);
+            const __dirname = path.dirname(__filename);
+            const expectedPath = path.join(__dirname, '../../src/scraper/cache.json');
+        
+            const expectedData = JSON.stringify(cacheData, null, 2);
+            sandbox.assert.calledWith(writeFileSyncStub, expectedPath, expectedData);
         });
     });
 });
