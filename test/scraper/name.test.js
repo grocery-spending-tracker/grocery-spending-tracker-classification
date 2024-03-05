@@ -10,6 +10,9 @@ describe('FRT-M9: Test product name scraper module', () => {
     mockValidSKU = '08390000636';
     mockInvalidSKU = 'asdfwefv234';
     
+    /**
+     * Tests for FRT-M9-2
+     */
     describe('FRT-M9-2: Test fetchName()', function() {
 
         this.timeout(20000);
