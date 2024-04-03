@@ -1,5 +1,10 @@
 import puppeteer from 'puppeteer';
 
+/**
+ * extracts listed price information from web
+ * @param {String} url grocer store web url
+ * @returns {String} listed price of product
+ */
 async function fetchPrice(url) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();

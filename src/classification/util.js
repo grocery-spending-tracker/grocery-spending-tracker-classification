@@ -7,6 +7,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const productsFilePath = path.join(__dirname, 'products.json');
 
+/**
+ * load products from json file
+ * @returns {List} list of products
+ */
 function loadProducts() {
     try {
         const rawData = fs.readFileSync(productsFilePath, 'utf8');
@@ -17,6 +21,10 @@ function loadProducts() {
     }
 }
 
+/**
+ * adds product data to existing json file
+ * @param {Dict} inputData new product data
+ */
 function addProduct(newProduct) {
     const products = loadProducts();
     products.push(newProduct);
@@ -28,6 +36,11 @@ function addProduct(newProduct) {
     }
 }
 
+/**
+ * extracts decimal number from string input
+ * @param {String} inputString input string that contains floating point number
+ * @returns {Float} floating point number
+ */
 function extractDecimalNumber(inputString) {
 
     if (inputString == null) {

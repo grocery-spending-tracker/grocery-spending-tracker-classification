@@ -2,6 +2,11 @@ import classifyItem from './classification/classifyItem.js';
 import getProductDetails from './scraper/fetchProductDetails.js';
 import utilClassification from './classification/util.js';
 
+/**
+ * Process raw items data and return processedItems data
+ * @param {List} items list of input raw items
+ * @returns {List} list of classified items
+ */
 async function processItem(items) {
     const products = utilClassification.loadProducts();    
     const processedItems = []; 

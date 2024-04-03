@@ -1,5 +1,10 @@
 import puppeteer from 'puppeteer';
 
+/**
+ * extracts product name information from web
+ * @param {String} url grocer store web url
+ * @returns {String} name of product
+ */
 async function fetchName(url) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();

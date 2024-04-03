@@ -1,5 +1,10 @@
 import puppeteer from 'puppeteer';
 
+/**
+ * extracts image information from web
+ * @param {String} url grocer store web url
+ * @returns {String} image url of product
+ */
 async function fetchImage(url) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
