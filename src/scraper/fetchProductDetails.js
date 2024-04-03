@@ -7,6 +7,11 @@ import * as image from './image.js';
 import util from './util.js';
 import logger from '../logger.js';
 
+/**
+ * get all product information using web scraper
+ * @param {String} sku stock keeping unit of the product
+ * @returns {Dict} item data extracted from web scraper
+ */
 async function getProductDetails(sku) {
     const cache = util.readCache();
 

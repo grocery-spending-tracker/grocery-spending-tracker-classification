@@ -1,6 +1,11 @@
 import fuzzyMatch from './fuzzyMatching.js'; 
 import util from './util.js'; 
 
+/**
+ * Classifies input item
+ * @param {Dict} inputItem raw item data
+ * @returns {Dict} classified item data
+ */
 async function classifyItem(inputItem) {
     const products = util.loadProducts();
 

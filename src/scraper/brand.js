@@ -1,5 +1,10 @@
 import puppeteer from 'puppeteer';
 
+/**
+ * extracts brand information from web
+ * @param {String} url grocer store web url
+ * @returns {String} brand of product
+ */
 async function fetchBrand(url) {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();

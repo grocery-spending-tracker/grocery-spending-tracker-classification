@@ -1,6 +1,12 @@
 import Fuse from 'fuse.js';
 import logger from '../logger.js'; // Adjust the path as necessary
 
+/**
+ * fuzzy matches input item
+ * @param {Dict} inputData raw input item data
+ * @param {List} products list of products
+ * @returns {List} list that contains input item, matched items, score
+ */
 function fuzzyMatching(inputData, products) {
     try {
         const enhancedProducts = products.map(p => ({
